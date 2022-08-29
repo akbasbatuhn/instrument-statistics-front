@@ -1,0 +1,255 @@
+<div class="container mb-50">
+  <div class="row">
+    <div class="col">
+      <div id="instrument-table">
+        <div class="tab-content pt-3">
+          <div *ngFor="let stock of stocks">
+            <div class="row">
+              <div id="instrument-header" class="row mb-3">
+                <div class="col-12">
+                  <h2>{{ stock.name }}</h2>
+                  <div class="isin-wkn">
+                    <div>
+                      <span>ISIN: {{ stock.isinCode }}</span>
+                      <span>WKN: {{ stock.baseData.wkn }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <h4>Kursdaten</h4>
+                <ul class="list-group list-group-flush mb-50">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Börse
+                    <span>{{ stock.priceInfo.exchange }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Update
+                    <span>{{ changeIsoDateToCustomDate(stock.priceInfo.lastUpdate) }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Geld
+                    <span>{{ stock.priceInfo.bid }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Geld Stk.
+                    <span>{{ stock.priceInfo.bidVolume }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Brief
+                    <span>{{ stock.priceInfo.offer }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Brief Stk.
+                    <span>{{ stock.priceInfo.offerVolume }}</span>
+                  </li>
+
+                  <hr class="list-group-item-separator" />
+
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Letzter
+                    <span class="">{{ stock.priceInfo.lastTradedPrice }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Änderung
+                    <span class="">{{ stock.priceInfo.changePercentage }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Stand
+                    <span class="">{{ changeIsoDateToCustomDate(stock.priceInfo.stand) }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Eröffnung
+                    <span class="">{{ stock.priceInfo.opening }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Vortag
+                    <span class="">{{ stock.priceInfo.previousClosing }}</span>
+                  </li>
+
+                  <hr />
+
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Gehandelt Stücke
+                    <span class="">{{ stock.priceInfo.tradedVolume }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Gehandelt Umsatz
+                    <span class="">{{ stock.priceInfo.tradedAmount }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Tageschoch
+                    <span class="">{{ stock.priceInfo.dailyHigh }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Tagestief
+                    <span class="">{{ stock.priceInfo.dailyLow }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    52W Hoch
+                    <span class="">
+                      {{ stock.priceInfo.high52w }}
+                      (
+                      {{ stock.priceInfo.high52wDate }}
+                      )
+                    </span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    52W Tief
+                    <span class="">
+                      {{ stock.priceInfo.low52w }}
+                      (
+                      {{ stock.priceInfo.low52wDate }}
+                      )
+                    </span>
+                  </li>
+                </ul>
+
+                <h2>Stammdaten</h2>
+                <ul class="list-group list-group-flush mb-50">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Wertpapiertyp
+                    <span class="">{{ stock.baseData.securityType }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    ISIN
+                    <span class="">{{ stock.isinCode }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    WKN
+                    <span class="">{{ stock.baseData.wkn }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Währung
+                    <span class="">{{ stock.baseData.currency }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Erstnotierung
+                    <span class="">{{
+                      stock.baseData.initialListingDate
+                    }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Gründungsjahr
+                    <span class="">{{ stock.baseData.foundingYear }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Geschäftsjahr
+                    <span class="">{{ stock.baseData.fiscalDate }}</span>
+                  </li>
+                </ul>
+
+                <h2>Fundamentaldaten</h2>
+                <ul class="list-group list-group-flush mb-50">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Branche
+                    <span class="">{{ stock.fundamentalData.industry }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Marktkapital
+                    <span class="">{{ stock.fundamentalData.marketCapital }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Stücke
+                    <span class="">{{ stock.fundamentalData.pieces }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Eigenkapital
+                    <span class="">{{ stock.fundamentalData.equityCapital }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Mitarbeiterzahl
+                    <span class="">{{ stock.fundamentalData.numberOfEmployees }}</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Hauptversammlung
+                    <span class="">{{ stock.fundamentalData.lastGeneralMeeting }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-lg-8">
+                <div id="instrument-chart" class="mb-50">
+                  <h4>Chart</h4>
+                </div>
+
+                <div id="portrait" class="mb-50">
+                  <h4>Portrait</h4>
+                  <p>
+                    {{ stock.portrait }}
+                  </p>
+                </div>
+
+                <div id="instrument-news" class="mb-50">
+                  <h4>Newsbox Finanznachrichten.de</h4>
+                </div>
+              </div>
+            </div>
+            <hr class="mt-50" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
