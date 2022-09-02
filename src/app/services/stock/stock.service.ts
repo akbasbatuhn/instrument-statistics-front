@@ -16,4 +16,8 @@ export class StockService {
   public getStocks(): Observable<Stock[]>{
     return this.http.get<Stock[]>(`${this.apiUrl}/stock/all`);
   }
+
+  public getStock(isinCode: string): Observable<Stock>{
+    return this.http.get<Stock>(`${this.apiUrl}/stock/${isinCode}`);
+  }
 }
