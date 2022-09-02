@@ -1,5 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { StockService } from '../services/stock/stock.service';
 import { Stock } from '../shared/stock/models/stock.model';
 
@@ -9,27 +9,19 @@ import { Stock } from '../shared/stock/models/stock.model';
   styleUrls: ['./stock.component.scss']
 })
 export class StockComponent implements OnInit {
-  public stocks: Stock[];
+  isinCode!: string;
+  desiredStock!: Stock;
 
-  constructor(private stockService: StockService) {
-    this.stocks = [];
+  constructor(private stockService: StockService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.getStocks();
+    this.isinCode = this.activatedRoute.snapshot.paramMap.get('isinCode') || '';
+    this.stockService.getStock(this.isinCode).subscribe(data => {
+      this.desiredStock = data;
+    });
   }
 
-  public getStocks(): void {
-    this.stockService.getStocks().subscribe(
-      (response: Stock[]) => {
-        this.stocks = response;
-        console.log(this.stocks)
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
 
   changeIsoDateToCustomDate(date: string): string {
     const clockText: string = "Uhr";
